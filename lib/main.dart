@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_app2/secondpage.dart';
 
 import 'homepage.dart';
 
@@ -30,9 +31,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     MyHomePage(),
-    Text(
-      '',
-    ),
+    DateTimePickerPage(),
   ];
 
   void _onItemTapped(int index) {
