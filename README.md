@@ -1,7 +1,6 @@
-# my_app1
+# Lab v1.1
 
-A new Flutter project.
-
+My first part of my first lab
 ## Getting Started
 
 This project is a starting point for a Flutter application.
