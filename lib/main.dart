@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_app2/secondpage.dart';
+import 'package:my_app1/secondpage.dart';
 
 import 'homepage.dart';
 

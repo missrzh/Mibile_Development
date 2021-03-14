@@ -25,7 +25,7 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
               child: Text(
                 'Current Object',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 30, fontFamily: 'Courier'),
+                style: TextStyle(fontSize: 30, fontFamily: 'Arial'),
               ),
             ),
             Center(
@@ -39,7 +39,7 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
                 style: TextStyle(
                   fontSize: 40,
                   fontWeight: FontWeight.bold,
-                  fontFamily: 'Courier',
+                  fontFamily: 'Corier',
                   backgroundColor: Colors.blue,
                 ),
               ),
@@ -48,7 +48,7 @@ class _DateTimePickerPageState extends State<DateTimePickerPage> {
               child: Text(
                 'Enter Your Variable',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 30, fontFamily: 'Courier'),
+                style: TextStyle(fontSize: 30, fontFamily: 'Arial'),
               ),
             ),
           ],
