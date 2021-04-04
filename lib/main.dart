@@ -7,12 +7,9 @@ void main() => runApp(MyApp());
 
 /// This is the main application widget.
 class MyApp extends StatelessWidget {
-  static const String _title = 'Лабораторна Робота №1';
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: _title,
       home: MyStatefulWidget(),
     );
   }
@@ -31,7 +28,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     MyHomePage(),
-    DateTimePickerPage(),
+    SecondPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -43,9 +40,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Лабораторна робота #1'),
-      ),
+      appBar: MediaQuery.of(context).orientation == Orientation.landscape
+          ? null // show nothing in lanscape mode
+          : AppBar(
+              title: Text('Лабораторна робота №2'),
+            ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
