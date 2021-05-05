@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_app1/secondpage.dart';
 import 'package:my_app1/thirdpage.dart';
 
@@ -40,12 +41,19 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   }
 
   @override
+  void initState() {
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MediaQuery.of(context).orientation == Orientation.landscape
-          ? null // show nothing in lanscape mode
+      appBar: _selectedIndex == 2
+          ? null
+          // show nothing in lanscape mode
           : AppBar(
-              title: Text('Лабораторна робота №2'),
+              title: Text('Sorozhynskyi Mykhailo'),
             ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),

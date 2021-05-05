@@ -22,7 +22,7 @@ environment:
 
 dependencies:
   
-
+  flutter_search_bar: ^2.1.0
   flutter:
     sdk: flutter
   syncfusion_flutter_charts: ^19.1.54+1
@@ -60,6 +60,7 @@ flutter:
     - img/
     - img/icon.png
     - assets/MoviesList.txt
+    - assets/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

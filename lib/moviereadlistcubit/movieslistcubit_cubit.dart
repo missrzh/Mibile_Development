@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:my_app1/readjson.dart';
+import 'package:my_app1/classes/readjson.dart';
 
 part 'movieslistcubit_state.dart';
 
