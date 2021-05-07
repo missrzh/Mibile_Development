@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:my_app1/fourthpage.dart';
 import 'package:my_app1/secondpage.dart';
 import 'package:my_app1/thirdpage.dart';
 
@@ -32,6 +33,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     MyHomePage(),
     SecondPage(),
     ThirdPage(),
+    Gallery(),
   ];
 
   void _onItemTapped(int index) {
@@ -59,6 +61,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -69,8 +72,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             label: 'Second Page',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.palette_outlined),
+            icon: Icon(Icons.movie),
             label: 'Third Page',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.photo),
+            label: 'Gallery',
           ),
         ],
         currentIndex: _selectedIndex,
