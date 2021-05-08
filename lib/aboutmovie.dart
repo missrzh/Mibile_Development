@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:my_app1/aboutmoviecubit/aboutmoviecubit_cubit.dart';
 import 'package:my_app1/classes/readjson.dart';
 
@@ -17,6 +18,11 @@ class AboutMovie extends StatelessWidget {
         builder: (BuildContext context, state) {
           if (state is AboutmoviecubitInitial) {
             aboutCubit.load(id);
+            final spinkit = SpinKitRotatingCircle(
+              color: Colors.blue,
+              size: 50.0,
+            );
+            return Center(child: spinkit);
           }
           if (state is AboutmoviecubitLoading) {
             return Text("Loading");
@@ -38,10 +44,24 @@ class AboutMovie extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset(
-                movie.poster == "" ? 'img/empty1.png' : 'img/' + movie.poster,
+              Image.network(
+                movie.poster,
                 width: double.infinity,
                 fit: BoxFit.cover,
+                loadingBuilder: (BuildContext context, Widget child,
+                    ImageChunkEvent loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes
+                          : null,
+                    ),
+                  );
+                },
               ),
               Text(
                 movie.title + " (" + movie.year + ")",

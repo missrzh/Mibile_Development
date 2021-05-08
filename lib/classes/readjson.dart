@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'dart:math';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -71,19 +72,30 @@ class Movie {
 
 class MoviesRead {
   static List<Movie> movies = [];
-  Future<List<Movie>> getMovies() async {
+  Future<List<Movie>> getMovies(String query) async {
     try {
-      String data = await rootBundle.loadString('assets/MoviesList.txt');
-      dynamic jsonMovies = jsonDecode(data);
+      var data;
+      dynamic jsonMovies;
+      if (query.length > 3) {
+        data = await http.get(Uri.https('www.omdbapi.com', '/',
+            {'apikey': 'f928eca6', 's': query, 'page': '1'}));
+        if (data.statusCode != 200) {
+          return [];
+        }
+      }
+      jsonMovies = jsonDecode(data.body);
+      if (jsonMovies['Response'] == 'False') {
+        return [];
+      }
+      print(jsonMovies);
       List<Movie> movies = [];
       for (dynamic movie in jsonMovies['Search']) {
         movies.add(Movie.fromJson(movie));
       }
-      if (MoviesRead.movies.isEmpty) {
-        MoviesRead.movies = movies;
-      }
-      return MoviesRead.movies;
+
+      return movies;
     } catch (e) {
+      print(e);
       // If encountering an error, return [].
       return [];
     }
@@ -92,8 +104,9 @@ class MoviesRead {
   Future<Movie> getMovie(String id) async {
     try {
       print(id);
-      String movieData = await rootBundle.loadString('assets/' + id + '.txt');
-      dynamic jsonMovies_2 = jsonDecode(movieData);
+      var movieData = await http.get(
+          Uri.https('www.omdbapi.com', '/', {'i': id, 'apikey': 'f928eca6'}));
+      dynamic jsonMovies_2 = jsonDecode(movieData.body);
       return new Movie.fromJson(jsonMovies_2);
     } catch (e) {}
     return null;
