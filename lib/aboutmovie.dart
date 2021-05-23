@@ -34,8 +34,14 @@ class AboutMovie extends StatelessWidget {
               return buildLoaded(state.movie, context);
             } catch (Exception) {
               return Center(
-                  child: Text('Something went wrong :/',
-                      style: TextStyle(fontWeight: FontWeight.bold)));
+                  child: Text(
+                'Something went wrong :/',
+                style: TextStyle(
+                    color: Colors.white,
+                    decoration: TextDecoration.none,
+                    fontSize: 14),
+                textAlign: TextAlign.center,
+              ));
             }
           }
           return Container();

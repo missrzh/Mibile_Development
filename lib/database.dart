@@ -22,7 +22,7 @@ class DBProvider {
 
   initDB() async {
     return await openDatabase(
-      join(await getDatabasesPath(), 'super_db9.db'),
+      join(await getDatabasesPath(), 'super_db12.db'),
       onCreate: (db, version) async {
         await db.execute('''
         CREATE TABLE movies (
