@@ -5,13 +5,13 @@ import 'package:my_app1/classes/readjson.dart';
 part 'aboutmoviecubit_state.dart';
 
 class AboutmoviecubitCubit extends Cubit<AboutmoviecubitState> {
-  final MoviesRead serviceAbout;
+  final MovieService serviceAbout;
   AboutmoviecubitCubit(this.serviceAbout) : super(AboutmoviecubitInitial());
   Future<void> load(String id) async {
     try {
       emit(AboutmoviecubitLoading());
       Movie movie = await serviceAbout.getMovie(id);
-      print(movie.actors);
+      print('loading');
       emit(AboutmoviecubitLoaded(movie));
     } catch (e) {
       emit(AboutmoviecubitError(e.toString()));

@@ -8,7 +8,7 @@ class PhotoesInitial extends PhotoesState {}
 class PhotoesLoading extends PhotoesState {}
 
 class PhotoesLoaded extends PhotoesState {
-  final List<Photo> photoes;
+  final List<String> photoes;
   PhotoesLoaded(this.photoes);
 }
 

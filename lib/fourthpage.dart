@@ -16,9 +16,10 @@ class Gallery extends StatefulWidget {
 }
 
 class _GalleryState extends State<Gallery> {
-  final PhotoesCubit photoCubit = PhotoesCubit(PhotoesRead());
+  final PhotoesCubit photoCubit =
+      PhotoesCubit(PhotoSQLDecorator(PhotoesRead()));
   int cycle = 0;
-  List<Photo> photoes = [];
+  List<String> photoes = [];
 
   List<Widget> _tiles = <Widget>[];
 
@@ -40,7 +41,6 @@ class _GalleryState extends State<Gallery> {
               return Center(child: spinkit);
             }
             if (state is PhotoesLoading) {
-              print('Im here');
               final spinkit = SpinKitRotatingCircle(
                 color: Colors.blue,
                 size: 50.0,
@@ -49,6 +49,7 @@ class _GalleryState extends State<Gallery> {
             }
             if (state is PhotoesLoaded) {
               photoes = state.photoes;
+              print('here' + photoes.length.toString());
               return buildLoaded(photoes);
             }
             return Container();
@@ -107,12 +108,12 @@ class _GalleryState extends State<Gallery> {
   }
 }
 
-Widget buildLoaded(List<Photo> photoes) {
+Widget buildLoaded(List<String> photoes) {
   List<StaggeredTile> _preLoadStaggeredTiles = <StaggeredTile>[];
   List<Widget> _preLoadTiles = [];
   int incycle = 0;
-  for (Photo photo in photoes) {
-    _preLoadTiles.add(_URLImageTile(photo.stringURL));
+  for (String photo in photoes) {
+    _preLoadTiles.add(_URLImageTile(photo));
     incycle == 0
         ? _preLoadStaggeredTiles.add(StaggeredTile.count(3, 3))
         : incycle == 1

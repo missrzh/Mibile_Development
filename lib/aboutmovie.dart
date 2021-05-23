@@ -7,7 +7,8 @@ import 'package:my_app1/classes/readjson.dart';
 class AboutMovie extends StatelessWidget {
   final String id;
   AboutMovie(this.id);
-  final AboutmoviecubitCubit aboutCubit = AboutmoviecubitCubit(MoviesRead());
+  final AboutmoviecubitCubit aboutCubit =
+      AboutmoviecubitCubit(MovieSQLDecorator(MoviesRead()));
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +23,20 @@ class AboutMovie extends StatelessWidget {
               color: Colors.blue,
               size: 50.0,
             );
+
             return Center(child: spinkit);
           }
           if (state is AboutmoviecubitLoading) {
             return Text("Loading");
           }
           if (state is AboutmoviecubitLoaded) {
-            return buildLoaded(state.movie, context);
+            try {
+              return buildLoaded(state.movie, context);
+            } catch (Exception) {
+              return Center(
+                  child: Text('Something went wrong :/',
+                      style: TextStyle(fontWeight: FontWeight.bold)));
+            }
           }
           return Container();
         },

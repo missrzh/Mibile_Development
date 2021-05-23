@@ -15,7 +15,8 @@ class ThirdPage extends StatefulWidget {
 }
 
 class _ThirdPageState extends State<ThirdPage> {
-  final MovieslistcubitCubit myCubit = MovieslistcubitCubit(MoviesRead());
+  final MovieslistcubitCubit myCubit =
+      MovieslistcubitCubit(MovieSQLDecorator(MoviesRead()));
   String query = "";
   List<Movie> filteredMovies;
   List<Movie> allMovies;
@@ -24,13 +25,13 @@ class _ThirdPageState extends State<ThirdPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-                navigateSecondPage(MoviesRead());
-              })
-        ],
+        //actions: <Widget>[
+        //  IconButton(
+        //      icon: Icon(Icons.add),
+        //      onPressed: () {
+        //        navigateSecondPage(MovieSQLDecorator(MoviesRead()));
+        //      })
+        //],
         title: Text("Movies"),
       ),
       body: Column(children: [
@@ -51,7 +52,9 @@ class _ThirdPageState extends State<ThirdPage> {
                 return Center(child: spinkit);
               }
               if (state is MovieslistcubitLoaded) {
+                print('before2');
                 allMovies = state.movies;
+                print(allMovies.length);
 
                 return buildLoaded(allMovies, context);
               }
@@ -64,6 +67,7 @@ class _ThirdPageState extends State<ThirdPage> {
   }
 
   Widget buildLoaded(List<Movie> movies, BuildContext contex) {
+    print('legth' + movies.length.toString());
     return Expanded(
       child: movies.length == 0 || query.length < 3
           ? Center(child: Text("No Results"))
@@ -71,6 +75,7 @@ class _ThirdPageState extends State<ThirdPage> {
               itemCount: movies.length,
               itemBuilder: (context, index) {
                 final movie = movies[index];
+
                 return Dismissible(
                   key: Key(movie.title),
                   // Provide a function that tells the app
@@ -89,7 +94,26 @@ class _ThirdPageState extends State<ThirdPage> {
                               movies[index].poster == null ||
                               movies[index].poster == 'N/A'
                           ? Image.asset('img/empty1.png')
-                          : Image.network(movies[index].poster),
+                          : Image.network(
+                              movies[index].poster,
+                              loadingBuilder: (BuildContext context,
+                                  Widget child,
+                                  ImageChunkEvent loadingProgress) {
+                                if (loadingProgress == null) {
+                                  return child;
+                                }
+                                return Center(
+                                  child: CircularProgressIndicator(
+                                    value: loadingProgress.expectedTotalBytes !=
+                                            null
+                                        ? loadingProgress
+                                                .cumulativeBytesLoaded /
+                                            loadingProgress.expectedTotalBytes
+                                        : null,
+                                  ),
+                                );
+                              },
+                            ),
                       title: Text(
                         movies[index].title,
                         overflow: TextOverflow.ellipsis,
@@ -127,12 +151,7 @@ class _ThirdPageState extends State<ThirdPage> {
     });
   }
 
-  void refreshData() {
-    id++;
-  }
-
   Future onGoBack(dynamic value) {
-    refreshData();
     setState(() {});
   }
 

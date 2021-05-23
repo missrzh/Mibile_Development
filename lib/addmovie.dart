@@ -49,10 +49,11 @@ class AddMovie extends StatelessWidget {
                   child: Text("Add Movie to List"),
                   onPressed: () {
                     this.service.addMovie(Movie(
-                        poster: "",
-                        title: titleEditingController.text,
-                        year: yearEditingController.text,
-                        type: typeEditingController.text));
+                          poster: "",
+                          title: titleEditingController.text,
+                          year: yearEditingController.text,
+                          type: typeEditingController.text,
+                        ));
                     Navigator.of(context).pop();
                   })
             ],
